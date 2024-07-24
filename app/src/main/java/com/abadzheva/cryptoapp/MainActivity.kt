@@ -28,8 +28,14 @@ class MainActivity : AppCompatActivity() {
             ViewModelProvider(
                 this,
             )[CoinViewModel::class.java]
-        viewModel.loadData()
-        viewModel.priceList.observe(
+//        viewModel.priceList.observe(
+//            this,
+//            Observer {
+//                Log.d("TEST_OF_LOADING_DATA", "Success in activity $it")
+//            },
+//        )
+
+        viewModel.getDetailInfo("BTC").observe(
             this,
             Observer {
                 Log.d("TEST_OF_LOADING_DATA", "Success in activity $it")
