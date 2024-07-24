@@ -3,6 +3,8 @@ package com.abadzheva.cryptoapp.pojo
 import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.abadzheva.cryptoapp.api.ApiFactory.BASE_IMAGE_URL
+import com.abadzheva.cryptoapp.utils.convertTimestampToTime
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -45,7 +47,7 @@ data class CoinPriceInfo(
     val price: Double? = null,
     @SerializedName("LASTUPDATE")
     @Expose
-    val lastupdate: Int? = null,
+    val lastupdate: Long? = null,
     @SerializedName("LASTVOLUME")
     @Expose
     val lastvolume: Double? = null,
@@ -154,4 +156,8 @@ data class CoinPriceInfo(
     @SerializedName("IMAGEURL")
     @Expose
     val imageurl: String? = null,
-)
+) {
+    fun getFormattedTime(): String = convertTimestampToTime(lastupdate)
+
+    fun getFullImageUrl(): String = BASE_IMAGE_URL + imageurl
+}
