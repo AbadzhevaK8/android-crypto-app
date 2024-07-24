@@ -5,7 +5,9 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.abadzheva.cryptoapp.api.ApiFactory
 import com.abadzheva.cryptoapp.database.AppDatabase
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import com.abadzheva.cryptoapp.pojo.CoinPriceInfo
+import com.abadzheva.cryptoapp.pojo.CoinPriceInfoRawData
+import com.google.gson.Gson
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
@@ -20,14 +22,40 @@ class CoinViewModel(
     fun loadData() {
         val disposable =
             ApiFactory.apiService
-                .getTopCoinsInfo()
+                .getTopCoinsInfo(limit = 50)
+                .map {
+                    it.data
+                        ?.map { it.coinInfo?.name }
+                        ?.joinToString(",")
+                        .toString()
+                }.flatMap { ApiFactory.apiService.getFullPriceList(fSyms = it) }
+                .map { getPriceListFromRawData(it) }
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    Log.d("TEST_OF_LOADING_DATA", it.toString())
+                    db.coinPriceInfoDao().insertPriceList(it)
+                    Log.d("TEST_OF_LOADING_DATA", "Success: $it")
                 }, {
-                    Log.d("TEST_OF_LOADING_DATA", it.message.toString())
+                    Log.d("TEST_OF_LOADING_DATA", "Failure: ${it.message}")
                 })
+    }
+
+    private fun getPriceListFromRawData(coinPriceInfoRawData: CoinPriceInfoRawData): List<CoinPriceInfo> {
+        val result = ArrayList<CoinPriceInfo>()
+        val jsonObject = coinPriceInfoRawData.coinPriceInfoJsonObject ?: return result
+        val coinKeySet = jsonObject.keySet()
+        for (coinKey in coinKeySet) {
+            val currencyJson = jsonObject.getAsJsonObject(coinKey)
+            val currencyKeySet = currencyJson.keySet()
+            for (currencyKey in currencyKeySet) {
+                val priceInfo =
+                    Gson().fromJson(
+                        currencyJson.getAsJsonObject(currencyKey),
+                        CoinPriceInfo::class.java,
+                    )
+                result.add(priceInfo)
+            }
+        }
+        return result
     }
 
     override fun onCleared() {
