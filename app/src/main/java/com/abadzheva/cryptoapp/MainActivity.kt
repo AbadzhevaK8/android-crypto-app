@@ -1,18 +1,14 @@
 package com.abadzheva.cryptoapp
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.abadzheva.cryptoapp.api.ApiFactory
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.schedulers.Schedulers
+import androidx.lifecycle.ViewModelProvider
 
 class MainActivity : AppCompatActivity() {
-    private val compositeDisposable = CompositeDisposable()
+    private lateinit var viewModel: CoinViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,21 +21,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         // ------------------------
-        val disposable =
-            ApiFactory.apiService
-                .getTopCoinsInfo()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    Log.d("TEST_OF_LOADING_DATA", it.toString())
-                }, {
-                    Log.d("TEST_OF_LOADING_DATA", it.message.toString())
-                })
-        compositeDisposable.add(disposable)
-    }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        compositeDisposable.dispose()
+        viewModel =
+            ViewModelProvider(
+                this,
+                CoinViewModelFactory(application),
+            )[CoinViewModel::class.java]
+        viewModel.loadData()
     }
 }

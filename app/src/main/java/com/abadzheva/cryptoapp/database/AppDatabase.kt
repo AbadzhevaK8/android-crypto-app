@@ -16,7 +16,7 @@ abstract class AppDatabase : RoomDatabase() {
         fun getInstance(context: Context): AppDatabase {
             synchronized(LOCK) {
                 db?.let { return it }
-                val instance =
+                var instance =
                     Room
                         .databaseBuilder(
                             context,
