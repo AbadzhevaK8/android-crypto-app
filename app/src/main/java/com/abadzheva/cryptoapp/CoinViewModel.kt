@@ -20,11 +20,11 @@ class CoinViewModel(
 
     val priceList = db.coinPriceInfoDao().getPriceList()
 
+    fun getDetailInfo(fSym: String) = db.coinPriceInfoDao().getPriceInfoAboutCoin(fSym)
+
     init {
         loadData()
     }
-
-    fun getDetailInfo(fSym: String) = db.coinPriceInfoDao().getPriceInfoAboutCoin(fSym)
 
     private fun loadData() {
         val disposable =
