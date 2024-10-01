@@ -1,8 +1,8 @@
-package com.abadzheva.cryptoapp.api
+package com.abadzheva.cryptoapp.data.network
 
 import com.abadzheva.cryptoapp.BuildConfig
-import com.abadzheva.cryptoapp.pojo.CoinInfoListOfData
-import com.abadzheva.cryptoapp.pojo.CoinPriceInfoRawData
+import com.abadzheva.cryptoapp.data.model.CoinInfoListOfData
+import com.abadzheva.cryptoapp.data.model.CoinPriceInfoRawData
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

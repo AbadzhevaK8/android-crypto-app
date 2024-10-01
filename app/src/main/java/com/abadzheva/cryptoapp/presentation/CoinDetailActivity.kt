@@ -1,4 +1,4 @@
-package com.abadzheva.cryptoapp
+package com.abadzheva.cryptoapp.presentation
 
 import android.content.Context
 import android.content.Intent
@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
+import com.abadzheva.cryptoapp.R
 import com.abadzheva.cryptoapp.databinding.ActivityCoinDetailBinding
 import com.squareup.picasso.Picasso
 

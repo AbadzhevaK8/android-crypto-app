@@ -1,12 +1,12 @@
-package com.abadzheva.cryptoapp
+package com.abadzheva.cryptoapp.presentation
 
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import com.abadzheva.cryptoapp.api.ApiFactory
-import com.abadzheva.cryptoapp.database.AppDatabase
-import com.abadzheva.cryptoapp.pojo.CoinPriceInfo
-import com.abadzheva.cryptoapp.pojo.CoinPriceInfoRawData
+import com.abadzheva.cryptoapp.data.database.AppDatabase
+import com.abadzheva.cryptoapp.data.model.CoinPriceInfo
+import com.abadzheva.cryptoapp.data.model.CoinPriceInfoRawData
+import com.abadzheva.cryptoapp.data.network.ApiFactory
 import com.google.gson.Gson
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers

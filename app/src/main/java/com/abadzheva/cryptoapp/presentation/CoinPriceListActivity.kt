@@ -1,4 +1,4 @@
-package com.abadzheva.cryptoapp
+package com.abadzheva.cryptoapp.presentation
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -7,9 +7,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.abadzheva.cryptoapp.adapters.CoinInfoAdapter
+import com.abadzheva.cryptoapp.R
+import com.abadzheva.cryptoapp.data.model.CoinPriceInfo
 import com.abadzheva.cryptoapp.databinding.ActivityCoinPriceListBinding
-import com.abadzheva.cryptoapp.pojo.CoinPriceInfo
+import com.abadzheva.cryptoapp.presentation.adapters.CoinInfoAdapter
 
 class CoinPriceListActivity : AppCompatActivity() {
     private lateinit var viewModel: CoinViewModel

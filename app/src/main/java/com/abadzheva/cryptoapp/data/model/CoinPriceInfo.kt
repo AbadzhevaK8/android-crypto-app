@@ -1,9 +1,9 @@
-package com.abadzheva.cryptoapp.pojo
+package com.abadzheva.cryptoapp.data.model
 
 import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.abadzheva.cryptoapp.api.ApiFactory.BASE_IMAGE_URL
+import com.abadzheva.cryptoapp.data.network.ApiFactory.BASE_IMAGE_URL
 import com.abadzheva.cryptoapp.utils.convertTimestampToTime
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
