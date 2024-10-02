@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.abadzheva.cryptoapp.R
-import com.abadzheva.cryptoapp.data.model.CoinPriceInfo
+import com.abadzheva.cryptoapp.data.network.model.CoinInfoDto
 import com.abadzheva.cryptoapp.databinding.ItemCoinInfoBinding
 import com.squareup.picasso.Picasso
 
@@ -14,7 +14,7 @@ class CoinInfoAdapter(
     private val context: Context,
 ) : Adapter<CoinInfoAdapter.CoinInfoViewHolder>() {
     lateinit var bindind: ItemCoinInfoBinding
-    var coinInfoList: List<CoinPriceInfo> = listOf()
+    var coinInfoList: List<CoinInfoDto> = listOf()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -64,6 +64,6 @@ class CoinInfoAdapter(
     }
 
     interface OnCoinClickListener {
-        fun onCoinClick(coinPriceInfo: CoinPriceInfo)
+        fun onCoinClick(coinPriceInfo: CoinInfoDto)
     }
 }

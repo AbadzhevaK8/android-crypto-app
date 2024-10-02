@@ -1,8 +1,8 @@
 package com.abadzheva.cryptoapp.data.network
 
 import com.abadzheva.cryptoapp.BuildConfig
-import com.abadzheva.cryptoapp.data.model.CoinInfoListOfData
-import com.abadzheva.cryptoapp.data.model.CoinPriceInfoRawData
+import com.abadzheva.cryptoapp.data.network.model.CoinInfoJsonContainerDto
+import com.abadzheva.cryptoapp.data.network.model.CoinNamesListDto
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -13,14 +13,14 @@ interface ApiService {
         @Query(QUERY_PARAM_API_KEY) apiKey: String = BuildConfig.API_KEY,
         @Query(QUERY_PARAM_LIMIT) limit: Int = 10,
         @Query(QUERY_PARAM_TO_SYMBOL) tSym: String = CURRENCY,
-    ): Single<CoinInfoListOfData>
+    ): Single<CoinNamesListDto>
 
     @GET("pricemultifull")
     fun getFullPriceList(
         @Query(QUERY_PARAM_API_KEY) apiKey: String = BuildConfig.API_KEY,
         @Query(QUERY_PARAM_FROM_SYMBOL) fSyms: String,
         @Query(QUERY_PARAM_TO_SYMBOLS) tSyms: String = CURRENCY,
-    ): Single<CoinPriceInfoRawData>
+    ): Single<CoinInfoJsonContainerDto>
 
     companion object {
         private const val QUERY_PARAM_API_KEY = "api_key"

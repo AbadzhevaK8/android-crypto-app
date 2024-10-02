@@ -4,9 +4,9 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.abadzheva.cryptoapp.data.database.AppDatabase
-import com.abadzheva.cryptoapp.data.model.CoinPriceInfo
-import com.abadzheva.cryptoapp.data.model.CoinPriceInfoRawData
 import com.abadzheva.cryptoapp.data.network.ApiFactory
+import com.abadzheva.cryptoapp.data.network.model.CoinInfoDto
+import com.abadzheva.cryptoapp.data.network.model.CoinInfoJsonContainerDto
 import com.google.gson.Gson
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -31,8 +31,8 @@ class CoinViewModel(
             ApiFactory.apiService
                 .getTopCoinsInfo(limit = 50)
                 .map {
-                    it.data
-                        ?.map { it.coinInfo?.name }
+                    it.names
+                        ?.map { it.coinName?.name }
                         ?.joinToString(",")
                         .toString()
                 }.flatMap { ApiFactory.apiService.getFullPriceList(fSyms = it) }
@@ -49,9 +49,9 @@ class CoinViewModel(
                 })
     }
 
-    private fun getPriceListFromRawData(coinPriceInfoRawData: CoinPriceInfoRawData): List<CoinPriceInfo> {
-        val result = ArrayList<CoinPriceInfo>()
-        val jsonObject = coinPriceInfoRawData.coinPriceInfoJsonObject ?: return result
+    private fun getPriceListFromRawData(coinInfoJsonContainerDto: CoinInfoJsonContainerDto): List<CoinInfoDto> {
+        val result = ArrayList<CoinInfoDto>()
+        val jsonObject = coinInfoJsonContainerDto.json ?: return result
         val coinKeySet = jsonObject.keySet()
         for (coinKey in coinKeySet) {
             val currencyJson = jsonObject.getAsJsonObject(coinKey)
@@ -60,7 +60,7 @@ class CoinViewModel(
                 val priceInfo =
                     Gson().fromJson(
                         currencyJson.getAsJsonObject(currencyKey),
-                        CoinPriceInfo::class.java,
+                        CoinInfoDto::class.java,
                     )
                 result.add(priceInfo)
             }
