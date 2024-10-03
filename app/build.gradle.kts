@@ -52,6 +52,7 @@ android {
 
 dependencies {
     implementation(libs.androidx.activity)
+    testImplementation(libs.junit.jupiter)
     val lifecycle_version = "2.7.0"
     val room_version = "2.6.1"
 
