@@ -39,8 +39,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -51,33 +51,30 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.material)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.androidx.activity)
     testImplementation(libs.junit.jupiter)
-    val lifecycle_version = "2.7.0"
-    val room_version = "2.6.1"
 
-    implementation("androidx.room:room-runtime:$room_version")
-    ksp("androidx.room:room-compiler:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 
-    implementation("com.squareup.picasso:picasso:2.8")
+    implementation(libs.retrofit2.retrofit)
+    implementation(libs.retrofit2.converter.gson)
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
-    ksp("androidx.lifecycle:lifecycle-compiler:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version")
+    implementation(libs.androidx.room.runtime.v270)
+    ksp(libs.androidx.room.compiler.v270)
+    implementation(libs.androidx.room.ktx)
 
-    implementation("io.reactivex.rxjava3:rxandroid:3.0.2")
-    implementation("io.reactivex.rxjava3:rxjava:3.1.5")
+    implementation(libs.picasso)
 
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    ksp(libs.androidx.lifecycle.compiler)
+    implementation(libs.androidx.lifecycle.reactivestreams.ktx)
+    implementation(libs.androidx.work.runtime.ktx)
 }
