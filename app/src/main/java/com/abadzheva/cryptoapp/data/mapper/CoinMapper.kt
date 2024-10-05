@@ -17,7 +17,7 @@ class CoinMapper {
             highday = dto.highday,
             lowday = dto.lowday,
             lastmarket = dto.lastmarket,
-            imageurl = dto.getFullImageUrl(),
+            imageurl = dto.imageurl,
         )
 
     fun mapJsonContainerToListCoinInfo(jsonContainer: CoinInfoJsonContainerDto): List<CoinInfoDto> {
@@ -43,7 +43,7 @@ class CoinMapper {
         namesListDto.names
             ?.map { it.coinName?.name }
             ?.joinToString(",")
-            .toString() ?: ""
+            .toString()
 
     fun mapDbModelToEntity(dbModel: CoinInfoDbModel) =
         CoinInfo(

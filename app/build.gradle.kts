@@ -38,10 +38,7 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -55,6 +52,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.material)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -67,14 +65,14 @@ dependencies {
     implementation(libs.retrofit2.retrofit)
     implementation(libs.retrofit2.converter.gson)
 
-    implementation(libs.androidx.room.runtime.v270)
-    ksp(libs.androidx.room.compiler.v270)
-    implementation(libs.androidx.room.ktx)
-
     implementation(libs.picasso)
 
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     ksp(libs.androidx.lifecycle.compiler)
     implementation(libs.androidx.lifecycle.reactivestreams.ktx)
     implementation(libs.androidx.work.runtime.ktx)
+
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
 }
