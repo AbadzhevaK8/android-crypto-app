@@ -3,7 +3,6 @@ package com.abadzheva.cryptoapp.presentation.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.abadzheva.cryptoapp.R
 import com.abadzheva.cryptoapp.databinding.ItemCoinInfoBinding
@@ -12,8 +11,7 @@ import com.squareup.picasso.Picasso
 
 class CoinInfoAdapter(
     private val context: Context,
-) : Adapter<CoinInfoAdapter.CoinInfoViewHolder>() {
-    lateinit var bindind: ItemCoinInfoBinding
+) : Adapter<CoinInfoViewHolder>() {
     var coinInfoList: List<CoinInfo> = listOf()
         set(value) {
             field = value
@@ -27,7 +25,11 @@ class CoinInfoAdapter(
         viewType: Int,
     ): CoinInfoViewHolder {
         val binding =
-            ItemCoinInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemCoinInfoBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false,
+            )
 
         return CoinInfoViewHolder(binding)
     }
@@ -39,7 +41,7 @@ class CoinInfoAdapter(
         position: Int,
     ) {
         val coin = coinInfoList[position]
-        with(holder) {
+        with(holder.binding) {
             with(coin) {
                 val symbolsTemplate = context.resources.getString(R.string.symbols_template)
                 val lastUpdateTemplate = context.resources.getString(R.string.last_update_template)
@@ -48,20 +50,11 @@ class CoinInfoAdapter(
                 tvLastUpdate.text =
                     String.format(lastUpdateTemplate, lastupdate)
                 Picasso.get().load(imageurl).into(ivLogoCoin)
-                itemView.setOnClickListener {
+                root.setOnClickListener {
                     onCoinClickListener?.onCoinClick(this)
                 }
             }
         }
-    }
-
-    inner class CoinInfoViewHolder(
-        binding: ItemCoinInfoBinding,
-    ) : RecyclerView.ViewHolder(binding.root) {
-        val ivLogoCoin = binding.ivLogoCoin
-        val tvSymbols = binding.tvSymbols
-        val tvPrice = binding.tvPrice
-        val tvLastUpdate = binding.tvLastUpdate
     }
 
     interface OnCoinClickListener {
