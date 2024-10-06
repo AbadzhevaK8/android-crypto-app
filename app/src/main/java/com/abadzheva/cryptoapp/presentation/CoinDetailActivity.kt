@@ -9,9 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.abadzheva.cryptoapp.R
-import com.abadzheva.cryptoapp.data.network.ApiFactory.BASE_IMAGE_URL
 import com.abadzheva.cryptoapp.databinding.ActivityCoinDetailBinding
-import com.abadzheva.cryptoapp.utils.convertTimestampToTime
 import com.squareup.picasso.Picasso
 
 class CoinDetailActivity : AppCompatActivity() {
@@ -49,10 +47,10 @@ class CoinDetailActivity : AppCompatActivity() {
                 binding.tvMinPrice.text = it.lowday.toString()
                 binding.tvMaxPrice.text = it.highday.toString()
                 binding.tvLastMarket.text = it.lastmarket
-                binding.tvLastUpdate.text = convertTimestampToTime(it.lastupdate)
+                binding.tvLastUpdate.text = it.lastupdate
                 binding.tvFromSymbol.text = it.fromsymbol
                 binding.tvToSymbol.text = it.tosymbol
-                Picasso.get().load(BASE_IMAGE_URL + it.imageurl).into(binding.ivLogoCoin)
+                Picasso.get().load(it.imageurl).into(binding.ivLogoCoin)
             }
         }
     }

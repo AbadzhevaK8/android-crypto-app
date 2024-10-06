@@ -1,10 +1,7 @@
 package com.abadzheva.cryptoapp.data.network.model
 
-import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.abadzheva.cryptoapp.data.network.ApiFactory.BASE_IMAGE_URL
-import com.abadzheva.cryptoapp.utils.convertTimestampToTime
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -17,7 +14,6 @@ data class CoinInfoDto(
     @Expose
     val market: String? = null,
     @PrimaryKey
-    @NonNull
     @SerializedName("FROMSYMBOL")
     @Expose
     val fromsymbol: String,
@@ -156,8 +152,4 @@ data class CoinInfoDto(
     @SerializedName("IMAGEURL")
     @Expose
     val imageurl: String? = null,
-) {
-    fun getFormattedTime(): String = convertTimestampToTime(lastupdate)
-
-    fun getFullImageUrl(): String = BASE_IMAGE_URL + imageurl
-}
+)
