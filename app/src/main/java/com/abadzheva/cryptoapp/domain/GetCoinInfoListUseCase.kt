@@ -1,7 +1,11 @@
 package com.abadzheva.cryptoapp.domain
 
-class GetCoinInfoListUseCase(
-    private val repository: CoinRepository,
-) {
-    operator fun invoke() = repository.getCoinInfoList()
-}
+import javax.inject.Inject
+
+class GetCoinInfoListUseCase
+    @Inject
+    constructor(
+        private val repository: CoinRepository,
+    ) {
+        operator fun invoke() = repository.getCoinInfoList()
+    }
