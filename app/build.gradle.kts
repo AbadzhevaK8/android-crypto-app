@@ -77,5 +77,5 @@ dependencies {
     implementation(libs.androidx.room.ktx)
 
     implementation(libs.dagger)
-    annotationProcessor(libs.dagger.compiler)
+    ksp(libs.dagger.compiler)
 }
