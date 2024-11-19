@@ -10,12 +10,22 @@ import com.abadzheva.cryptoapp.R
 import com.abadzheva.cryptoapp.databinding.ActivityCoinPriceListBinding
 import com.abadzheva.cryptoapp.domain.CoinInfo
 import com.abadzheva.cryptoapp.presentation.adapters.CoinInfoAdapter
+import javax.inject.Inject
 
 class CoinPriceListActivity : AppCompatActivity() {
     private lateinit var viewModel: CoinViewModel
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
     private lateinit var binding: ActivityCoinPriceListBinding
 
+    private val component by lazy {
+        (application as CoinApp).component
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_coin_price_list)
@@ -44,6 +54,7 @@ class CoinPriceListActivity : AppCompatActivity() {
         viewModel =
             ViewModelProvider(
                 this,
+                viewModelFactory,
             )[CoinViewModel::class.java]
         viewModel.coinInfoList.observe(
             this,
