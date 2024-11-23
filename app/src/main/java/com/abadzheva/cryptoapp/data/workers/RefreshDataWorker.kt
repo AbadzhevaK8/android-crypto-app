@@ -5,19 +5,18 @@ import androidx.work.CoroutineWorker
 import androidx.work.OneTimeWorkRequest
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkerParameters
-import com.abadzheva.cryptoapp.data.database.AppDatabase
+import com.abadzheva.cryptoapp.data.database.CoinInfoDao
 import com.abadzheva.cryptoapp.data.mapper.CoinMapper
-import com.abadzheva.cryptoapp.data.network.ApiFactory
+import com.abadzheva.cryptoapp.data.network.ApiService
 import kotlinx.coroutines.delay
 
 class RefreshDataWorker(
     context: Context,
     params: WorkerParameters,
+    private val coinInfoDao: CoinInfoDao,
+    private val apiService: ApiService,
+    private val mapper: CoinMapper,
 ) : CoroutineWorker(context, params) {
-    private val mapper = CoinMapper()
-    private val apiService = ApiFactory.apiService
-    private val coinInfoDao = AppDatabase.getInstance(context).coinPriceInfoDao()
-
     override suspend fun doWork(): Result {
         while (true) {
             try {
@@ -27,7 +26,7 @@ class RefreshDataWorker(
                 val coinInfoDtoList = mapper.mapJsonContainerToListCoinInfo(jsonContainer)
                 val dbModelList = coinInfoDtoList.map { mapper.mapDtoToDbModel(it) }
                 coinInfoDao.insertPriceList(dbModelList)
-            } catch (e: Exception) {
+            } catch (_: Exception) {
             }
             delay(10000)
         }
