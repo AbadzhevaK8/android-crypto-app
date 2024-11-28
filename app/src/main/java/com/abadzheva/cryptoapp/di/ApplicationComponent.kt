@@ -12,6 +12,7 @@ import dagger.Component
     modules = [
         DataModule::class,
         ViewModelModule::class,
+        WorkerModule::class,
     ],
 )
 interface ApplicationComponent {
